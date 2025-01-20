@@ -1,0 +1,48 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "arXiv",
+	"behavior": "create",
+	"noteContentFormat": "<%* await\ntp.app.vault.createBinary(\"Papers/Dummy PDFs/\"+tp.frontmatter.id+\".pdf\", tp.frontmatter.pdf)\n-%>\n#papers\n<% \"[[\"+tp.frontmatter.id+\".pdf]]\" -%>\n\n## Abstract: \n{{content|split:\"Abstract:\"|slice:1,2|split:\"##\"|slice:0,1}}\n## Note",
+	"properties": [
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "authors",
+			"value": "{{fullHtml|split:\\\"Authors:\\\"|slice:1|split:\\\"</div>\\\"|slice:0,1|slice:7|remove_tags:\\\"a\\\"}}",
+			"type": "multitext"
+		},
+		{
+			"name": "url",
+			"value": "{{url}}",
+			"type": "text"
+		},
+		{
+			"name": "id",
+			"value": "{{url|split:\\\"/\\\"|slice:4|split:\\\"#\\\"|slice:0,1}}",
+			"type": "text"
+		},
+		{
+			"name": "published",
+			"value": "{{fullHtml|split:\\\"citation_date\\\"|slice:1|slice:11,21}}",
+			"type": "date"
+		},
+		{
+			"name": "pdf",
+			"value": "{{url|replace:\\\"/abs/\\\":\\\"pdf\\\"}}",
+			"type": "text"
+		},
+		{
+			"name": "downloaded",
+			"value": "{{date|split:\\\"T\\\"|slice:0,1}}",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://arxiv.org/abs"
+	],
+	"noteNameFormat": "{{title}}",
+	"path": "Papers"
+}
