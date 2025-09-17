@@ -1,0 +1,64 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "OpenReview",
+	"behavior": "create",
+	"noteContentFormat": "<%* await\ntp.app.vault.createBinary(\"Papers/Dummy PDFs/\"+tp.frontmatter.id+\".pdf\", tp.frontmatter.pdf)\n-%>\n<% \"[[\"+tp.frontmatter.id+\".pdf]]\" -%>\n\nkeywords: \n## Abstract: \n{{description}}\n## (A) Summary:\n\n## Summary:\n\n## Note:\n",
+	"properties": [
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "authors",
+			"value": "{{fullHtml|split:\\\"meta name=\\\\\"citation_author\\\\\" content=\\\\\"\\\"|slice:1|replace:\\\"\\\\\\\\\"><\\\\\",\\\\\"\\\":\\\", \\\"|split:\\\"\\\\\\\"|slice:0,1|slice:2,}}",
+			"type": "text"
+		},
+		{
+			"name": "url",
+			"value": "{{url}}",
+			"type": "text"
+		},
+		{
+			"name": "id",
+			"value": "{{url|split:\\\"id=\\\"|slice:1,}}",
+			"type": "text"
+		},
+		{
+			"name": "published",
+			"value": "{{meta:name:citation_online_date}}",
+			"type": "date"
+		},
+		{
+			"name": "pdf",
+			"value": "{{meta:name:citation_pdf_url}}",
+			"type": "text"
+		},
+		{
+			"name": "downloaded",
+			"value": "{{date|split:\\\"T\\\"|slice:0,1}}",
+			"type": "date"
+		},
+		{
+			"name": "star",
+			"value": "0",
+			"type": "checkbox"
+		},
+		{
+			"name": "aliases",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "tags",
+			"value": "#papers #{{fullHtml|split:\\\"meta name=\\\\\"citation_author\\\\\" content=\\\\\"\\\"|slice:1|replace:\\\"\\\\\\\\\"><\\\\\",\\\\\"\\\":\\\", \\\"|split:\\\"\\\\\\\"|slice:0,1|slice:2,|replace:\\\" \\\":\\\"\\\"|replace:\\\",\\\":\\\" #\\\"}}",
+			"type": "multitext"
+		}
+	],
+	"triggers": [
+		"https://openreview.net"
+	],
+	"noteNameFormat": "{{title}}",
+	"path": "Papers",
+	"context": "{{url}}"
+}
